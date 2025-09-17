@@ -52,10 +52,13 @@ public class GroupAnagrams {
             }
         }
 
-        List<List<String>> a =
-        anagramMap.entrySet().stream().map(Map.Entry::getValue).toList();
+        List<List<String>> a = anagramMap.entrySet().stream().map(Map.Entry::getValue).toList();
 
-        System.out.println(a);
+        List<String> b = anagramMap.entrySet().stream()
+                .map(Map.Entry::getValue).toList().getFirst();
+
+        //System.out.println(b);
+
         return a;
     }
 }
