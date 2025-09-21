@@ -14,6 +14,7 @@ public class IsPalindromeOrPermutation {
     private static boolean isPalindrome(String palindrome) {
 
         /* Statement:
+
             A Palindrome should be able to ve reversed and de read equallly
             Example: 'aaabb' is Palindrome => 'baaab'
             So a Palindrome can have at Most one char that can be repeated as None

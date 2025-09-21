@@ -5,6 +5,13 @@ import java.util.Map;
 
 public class ConvertRomanToInteger {
 
+    /*
+        Statement:
+
+        Convert a given Roman number into an Integer.
+        Example 2: XLV => 45
+        Example 2: MMDCCXLIV => 2744
+    */
     static String I = "I";
     static String V = "V";
     static String X = "X";//10
@@ -14,7 +21,7 @@ public class ConvertRomanToInteger {
     static String M = "M";//1,000
 
     public static void main(String[] args) {
-        toInteger("MMDCCXLIV");
+        toInteger("XLV");
     }
 
     private static int toInteger(String romanNumber) {
@@ -39,6 +46,7 @@ public class ConvertRomanToInteger {
         for (int i = 0; i < romanNumber.length(); i++) {
 
             if(i > 0 && romanValues.get(romanNumber.charAt(i)+"") > romanValues.get(romanNumber.charAt(i-1)+"")) {
+                // IX -> Increase = x(10) - 2*( I(1) )
                 increase = increase + romanValues.get(romanNumber.charAt(i)+"") - romanValues.get(romanNumber.charAt(i-1)+"") * 2;
             } else {
                 increase = increase + romanValues.get(romanNumber.charAt(i) + "");

@@ -2,16 +2,16 @@ package com.code.challenges.others;
 
 public class FibonacciRecursivo {
 
+    /**
+     * Statement:
+     *
+     * Generate an algorith for the Fibonacci series
+     */
     public static void main(String[] args) {
         int n = 10; // Número de elementos que se quieren mostrar
 
         System.out.println("La serie Fibonacci es:");
         System.out.print(fibonacci(10) + " ");
-        /*
-        for (int i = 0; i < n; i++) {
-            System.out.print(fibonacci(i) + " ");
-        }
-        */
     }
 
     // Método para calcular el n-ésimo número de Fibonacci recursivamente

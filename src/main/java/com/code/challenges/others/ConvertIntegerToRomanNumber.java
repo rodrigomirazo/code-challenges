@@ -3,7 +3,11 @@ package com.code.challenges.others;
 public class ConvertIntegerToRomanNumber {
 
     /*
-        I (1), V (5), X (10), L (50), C (100), D (500), and M (1,000)
+        Statement:
+
+        Convert a given integer into a Roman Number.
+        Example 2: 45 => XLV
+        Example 2: 1234 => MCCXXXIV
      */
     static String I = "I";
     static String V = "V";
@@ -13,8 +17,8 @@ public class ConvertIntegerToRomanNumber {
     static String D = "D";//500
     static String M = "M";//1,000
 
-    public static void main(String[] args) {
-        Integer number = 1234;
+    static void main(String[] args) {
+        Integer number = 45;
 
         System.out.println(toRomanNumber(number));
     }
@@ -27,7 +31,6 @@ public class ConvertIntegerToRomanNumber {
 
         // 1234
         // hundreds => 1234 / 10 => 123 => 12 % 10 => 3
-        System.out.println((number)%10);
         return thousands[number/1000] + hundreds[ (number/100)%10] + tens[(number/10)%10] + units[number%10];
     }
 
