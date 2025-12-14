@@ -32,7 +32,6 @@ public class SetMatrixZeroes {
         System.out.println("Case 2: "); setZeroes(case2);
     }
 
-
     public static void setZeroes(int[][] matrix) {
 
         // Collect Zero's cordanates in a Map

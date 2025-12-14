@@ -26,20 +26,21 @@ public class ContainerWithMostWater {
     }
 
     public static int maxArea(int[] height) {
-
         int maxArea = 0;
-        // outer for => wil be for the left limit
-        for(int i = 0; i < height.length - 1; i++) {
+        for(int i = 0; i < height.length; i++) {
 
-            // outer for => wil be for the right limit
-            for(int j = 1; j < height.length; j++) {
-                // get mininum from both bars
-                int currentArea = Math.min(height[i], height[j]) * (j-i);
-                if(currentArea > maxArea) {
-                    maxArea = currentArea;
+            for(int j = 0; j < height.length; j++) {
+                int minHeight = Math.min(height[i], height[j]);
+                int base = j - i;
+                if(minHeight > 0 && base > 0) {
+                    int currentArea = minHeight * base;
+                    if(maxArea < currentArea) {
+                        maxArea = currentArea;
+                    }
                 }
             }
         }
+
         return maxArea;
     }
 }

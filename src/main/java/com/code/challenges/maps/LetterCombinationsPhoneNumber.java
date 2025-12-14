@@ -37,7 +37,6 @@ public class LetterCombinationsPhoneNumber {
         System.out.println("Case 3: " + letterCombinations("2"));
     }
 
-
     public static List<String> letterCombinations(String digits) {
         Map<Integer, String> phoneKeys = new HashMap<>();
         phoneKeys.put(2,"abc");
@@ -53,35 +52,25 @@ public class LetterCombinationsPhoneNumber {
         // having a nested Loop =>
         // example having 2 numbers for( First number) { for (second number) { } }
 
-        List<String> combinations = new ArrayList<>();
-        List<String> nextCombination = new ArrayList<>();
-        //
-        int digitsIndex = 0;
-        for(int i = 0; i < digits.length(); i++) {
-            // 2, 3, 4
-            Integer currentDigit = Integer.parseInt(digits.charAt(i)+"");
-            String currentLetters = phoneKeys.get(currentDigit);
+        List<String> result = new ArrayList<>();
+        permute(result, 0, "", digits, phoneKeys);
 
-            if(i == 0) {
-                for(int j = 0; j < currentLetters.length(); j++) {
-                    // a, b, c
-                    combinations.add( currentLetters.charAt(j) + "" );
-                }
-            } else {
-                //Multiply combinaitons
+        return result;
+    }
 
-                int conbinatinCount = combinations.size();
-                for(int k = 0; k < conbinatinCount; k++) {
-                    // {a, b, c}
-                    String letter = combinations.get(k);
-
-                    // iterate through => def
-                    for(int j = 0; j < currentLetters.length(); j++) {
-                        combinations.add(letter + currentLetters.charAt(j) );
-                    }
-                }
-            }
+    private static void permute(List<String> result, int depth, String combination, String digits, Map<Integer, String> phoneKeys) {
+        if(depth == digits.length()) {
+            result.add(combination);
+            return;
         }
-        return combinations.stream().filter( str -> str.length() == digits.length()).toList();
+
+        // case => 23
+        // => case Depth is `0` I need to get digit `2` => "abc"
+        String keyLetters = phoneKeys.get( Integer.parseInt( digits.charAt(depth) + "") );
+        for(int i = 0; i < keyLetters.length(); i++) {
+            char charToPermute = keyLetters.charAt(i);
+            permute(result, depth + 1, combination + charToPermute, digits, phoneKeys);
+        }
+
     }
 }

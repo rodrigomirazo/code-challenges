@@ -34,34 +34,29 @@ public class GroupAnagrams {
     private static List<List<String>> groupAnagram(String[] anagrams) {
         // Key -> Anagram Key
         // Value -> List of anagrams related to the Key
-        Map<String, List<String>> anagramMap = new HashMap<>();
 
-        for(int i = 0; i < anagrams.length; i++) {
+        Map<String, List<String>> anagramsMap = new HashMap<>();
 
-            // Store a Key into the Map
-            // before => sort: anagrams[i] Char Sequence
-            char[] tempCharArray = anagrams[i].toCharArray();
-            Arrays.sort(tempCharArray);
-            String key = Arrays.toString(tempCharArray);
+        for(String anagram: anagrams) {
 
-            if(anagramMap.containsKey(key)) {
-                // Append Anagram
-                anagramMap.get(key).add(anagrams[i]);
+            char[] anagramArr = anagram.toCharArray();
+            Arrays.sort(anagramArr);
+
+            if(anagramsMap.containsKey(Arrays.toString(anagramArr))) {
+
+                anagramsMap.get(Arrays.toString(anagramArr)).add(anagram);
+
             } else {
-                // Insert Anagram
-                List<String> initialAnagramList = new ArrayList<>();
-                initialAnagramList.add(anagrams[i]);
-                anagramMap.put(key, initialAnagramList);
+                List<String> anagramList = new ArrayList<>();
+                anagramList.add(anagram);
+                anagramsMap.put(Arrays.toString(anagramArr), anagramList);
             }
         }
 
-        List<List<String>> a = anagramMap.entrySet().stream().map(Map.Entry::getValue).toList();
+        System.out.println(anagramsMap);
 
-        List<String> b = anagramMap.entrySet().stream()
-                .map(Map.Entry::getValue).toList().getFirst();
-
-        //System.out.println(b);
-
-        return a;
+        List<List<String>> anagramResp = anagramsMap.entrySet().stream().map( entryValue -> entryValue.getValue()).toList();
+        System.out.println(anagramResp);
+        return anagramResp;
     }
 }

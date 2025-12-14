@@ -32,37 +32,43 @@ public class MedianOfTwoSortedArrays {
 
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
 
-        List<int[]> lists = List.of(nums1, nums2);
+        int[] mergedArray = new int[(nums1.length + nums2.length)];
+        int index1 = 0, index2 = 0;
+        for(int i = 0 ; i < (nums1.length + nums2.length) ; i++) {
 
-        List<Double> doubles = new ArrayList<>();
-        for(int[] array : lists) {
-            for(int numb : array) {
-                doubles.add(parseDouble(numb + ""));
+            // limit arr1 has been reached
+            if(index1 >= nums1.length) {
+                mergedArray[i] = nums2[index2];
+                index2++;
+            } else if(index2 >= nums2.length) {
+                mergedArray[i] = nums1[index1];
+                index1++;
+            } else if(nums1[index1] < nums2[index2]) {
+                mergedArray[i] = nums1[index1];
+                index1++;
+            } else {
+                mergedArray[i] = nums2[index2];
+                index2++;
             }
         }
-
-        if(doubles.isEmpty()) {
-            return 0.0;
-        }
-
-        List<Double> doublesSoported = doubles.stream().sorted().toList();
-
-        System.out.println("doublesSoported: " + doublesSoported);
+        System.out.println(Arrays.toString(mergedArray));
 
         Double median;
-        if(doublesSoported.size() % 2 == 0) {
-            // size = 4 => 4/2 - 1 = 2 - 1 = 1
-            // size = 4 => 4/2 + 1 = 2 + 1 = 2
-            int medianIndex1 = doublesSoported.size()/2 - 1;
-            int medianIndex2 = doublesSoported.size()/2;
-            System.out.println("medianIndex1: " + medianIndex1);
-            System.out.println("medianIndex2: " + medianIndex2);
-            median = (doublesSoported.get(medianIndex1) + doublesSoported.get(medianIndex2))/2;
+        // Par
+        if( mergedArray.length % 2 == 0) {
+            int midIndex1 = (mergedArray.length - 1)/2;
+            int midIndex2 = midIndex1 + 1;
+            System.out.println("midIndex1 = " + midIndex1);
+            System.out.println("midIndex2 = " + midIndex2);
+
+            median = ( (double) mergedArray[midIndex1] + (double) mergedArray[midIndex2]);
+            System.out.println("median = " + median);
         } else {
-            int medianIndex = doublesSoported.size()/2;
-            System.out.println("medianIndex: " + medianIndex);
-            median = doublesSoported.get(medianIndex);
+            int midIndex = mergedArray.length/2;
+            median = (double) mergedArray[midIndex];
+            System.out.println("median = " + median);
         }
+
         return median;
     }
 }
