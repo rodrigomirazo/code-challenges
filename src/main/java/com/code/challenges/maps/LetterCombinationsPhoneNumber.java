@@ -53,24 +53,22 @@ public class LetterCombinationsPhoneNumber {
         // example having 2 numbers for( First number) { for (second number) { } }
 
         List<String> result = new ArrayList<>();
-        permute(result, 0, "", digits, phoneKeys);
+        permute(0, digits, "", phoneKeys, result);
 
         return result;
     }
 
-    private static void permute(List<String> result, int depth, String combination, String digits, Map<Integer, String> phoneKeys) {
-        if(depth == digits.length()) {
-            result.add(combination);
+    private static void permute(int deep, String pressedKeys, String combinationConcat, Map<Integer, String> phoneKeys, List<String> result) {
+        if(deep == pressedKeys.length()) {
+            result.add(combinationConcat);
             return;
         }
 
-        // case => 23
-        // => case Depth is `0` I need to get digit `2` => "abc"
-        String keyLetters = phoneKeys.get( Integer.parseInt( digits.charAt(depth) + "") );
-        for(int i = 0; i < keyLetters.length(); i++) {
-            char charToPermute = keyLetters.charAt(i);
-            permute(result, depth + 1, combination + charToPermute, digits, phoneKeys);
-        }
+        int pressedKey = Integer.parseInt(pressedKeys.charAt(deep) + "");
+        String numberRelatedLetter = phoneKeys.get(pressedKey);
 
+        for(int i = 0; i < numberRelatedLetter.length(); i++) {
+            permute(deep + 1, pressedKeys, combinationConcat + numberRelatedLetter.charAt(i), phoneKeys, result);
+        }
     }
 }

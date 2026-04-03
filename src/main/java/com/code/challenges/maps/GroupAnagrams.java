@@ -1,5 +1,7 @@
 package com.code.challenges.maps;
 
+import com.sun.source.tree.BreakTree;
+
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.*;
@@ -31,32 +33,27 @@ public class GroupAnagrams {
         groupAnagram(anagrams);
     }
 
-    private static List<List<String>> groupAnagram(String[] anagrams) {
-        // Key -> Anagram Key
-        // Value -> List of anagrams related to the Key
+    private static void groupAnagram(String[] anagrams) {
 
-        Map<String, List<String>> anagramsMap = new HashMap<>();
+        Map<String, List<String>> anagramMap = new HashMap<>();
 
         for(String anagram: anagrams) {
+            //sort anagram String
+            char[] anagramArrKey = anagram.toCharArray();
+            Arrays.sort(anagramArrKey);
+            String anagramKey = Arrays.toString(anagramArrKey);
 
-            char[] anagramArr = anagram.toCharArray();
-            Arrays.sort(anagramArr);
-
-            if(anagramsMap.containsKey(Arrays.toString(anagramArr))) {
-
-                anagramsMap.get(Arrays.toString(anagramArr)).add(anagram);
-
+            if(anagramMap.containsKey(anagramKey)) {
+                anagramMap.get(anagramKey).add(anagram);
             } else {
                 List<String> anagramList = new ArrayList<>();
                 anagramList.add(anagram);
-                anagramsMap.put(Arrays.toString(anagramArr), anagramList);
+                anagramMap.put(anagramKey, anagramList);
             }
         }
+        System.out.println(anagramMap);
 
-        System.out.println(anagramsMap);
-
-        List<List<String>> anagramResp = anagramsMap.entrySet().stream().map( entryValue -> entryValue.getValue()).toList();
-        System.out.println(anagramResp);
-        return anagramResp;
+        List< List<String>> output = anagramMap.values().stream().toList();
+        System.out.println(output);
     }
 }
